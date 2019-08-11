@@ -1,0 +1,23 @@
+.jumbotron {
+    color: white;
+    background-color: brown;
+}
+
+.card-header {
+    color: white;
+    background-color: blue;
+    font-size: 20px;
+}
+
+.card {
+    border-color: blue;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: blue;
+}
+
+.form-group {
+    font-weight: bold;
+}
