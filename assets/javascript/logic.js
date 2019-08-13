@@ -20,6 +20,37 @@ $(document).ready(function() {
     var destination = "";
     var firstTrainTime = "";
     var frequency = "";
+    var nextTrain = "";
+    var minutesTillTrain = "";
+
+
+    function trainCalculations (firstTrain, trainFrequency) {
+
+        // First Time (pushed back 1 year to make sure it comes before current time)
+        var firstTimeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+        console.log(firstTimeConverted);
+    
+        // Current Time
+        var currentTime = moment();
+        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm A"));
+    
+        // Difference between the times
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        console.log("DIFFERENCE IN TIME: " + diffTime);
+    
+        // Time apart (remainder)
+        var tRemainder = diffTime % trainFrequency;
+        console.log(tRemainder);
+    
+        // Minute Until Train
+        minutesTillTrain = trainFrequency - tRemainder;
+        console.log(" MINUTES TILL TRAIN: " + minutesTillTrain);
+    
+        // Next Train
+        nextTrain = moment().add(minutesTillTrain, "minutes");
+        console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm A"));
+    
+    }
 
     // Capture Button Click
     $("#submit-train").on("click", function(event) {
@@ -53,18 +84,22 @@ $(document).ready(function() {
         // storing the snapshot.val() in a variable for convenience
         var sv = snapshot.val();
 
+        trainCalculations (sv.firstTrainTime, sv.frequency)
+
         // Console.loging the last user's data
-        console.log("Train Name: " + sv.name);
-        console.log("Destination: " + sv.destination);
-        console.log("First Train Time: " + sv.firstTrainTime);
-        console.log("Frequency: " + sv.frequency);
+        // console.log("Train Name: " + sv.name);
+        // console.log("Destination: " + sv.destination);
+        // console.log("First Train Time: " + sv.firstTrainTime);
+        // console.log("Frequency: " + sv.frequency);
 
         // Change the HTML to reflect
         // var nameTD = $("<td>");
         // nameTD.text(sv.name);
         // console.log(nameTD);
 
-        var displayRow = "<tr><td>" + sv.name + "</td><td>" + sv.destination + "</td><td>" + sv.frequency + "</td><td>Placeholder 1</td><td>Placeholder2</td></tr>";
+        console.log(nextTrain);
+        console.log(minutesTillTrain);
+        var displayRow = "<tr><td>" + sv.name + "</td><td>" + sv.destination + "</td><td>" + sv.frequency + "</td><td>" + moment(nextTrain).format("hh:mm A") + "</td><td>" + minutesTillTrain + "</td></tr>";
 
         // var destinationTD = $("<td>")
         // destinationTD.text(sv.destination);
@@ -79,18 +114,16 @@ $(document).ready(function() {
         // displayRow.append(nameTD + destinationTD + frequencyTD + arrivalTD + minutesTD);
         $("tbody").append(displayRow);
 
-        console.log(displayRow);
+        // console.log(displayRow);
         // console.log(nameTD);
+        console.log(sv.name);
+
 
 
       // Handle the errors
     }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
     });
-
-
-
-
 
 
 
