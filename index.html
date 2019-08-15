@@ -16,6 +16,7 @@
             <p class="lead text-center">Choo choo. Chee chee.</p>
         </div>
 
+        <!-- Displays train timetable -->
         <div class="card">
             <div class="card-header">
                 Current Train Schedule
@@ -35,9 +36,14 @@
                     <!-- New trains will appear here -->
                     </tbody>
                 </table>
+                <p class="text-center text-muted"><em>Last Updated: <span id = "last-update"></em></p>
+                <div class="text-center">
+                    <button type="submit" class="btn  btn-primary" id="refresh">Refresh</button>
+                </div>
             </div>
         </div>
 
+        <!-- Allows user to add a train -->
         <div class="card">
             <div class="card-header">
                 Add Train
